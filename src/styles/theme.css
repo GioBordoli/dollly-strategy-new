@@ -1,0 +1,17 @@
+:root {
+  --bg: 255 255 255;          /* white */
+  --fg: 15 23 42;             /* slate-900 */
+  --muted: 100 116 139;       /* slate-500 */
+
+  /* Brand — replace with Jo's exact shades later */
+  --blue: 37 99 235;          /* #2563EB default */
+  --blue-600: 37 99 235;
+  --blue-700: 29 78 216;
+
+  --aqua: 34 211 238;         /* #22D3EE cyan-ish water-green */
+  --aqua-600: 13 148 136;     /* teal side if needed */
+
+  --card: 248 250 252;        /* slate-50 */
+  --ring: 59 130 246;         /* ring color */
+  --radius: 16px;             /* rounded-xl-ish */
+} 
