@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Container from "./container";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { BrandLogo } from "@/components/brand/logo";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -14,6 +15,10 @@ export default function Header() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const scrollToBook = () => {
+    document.getElementById("book")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <motion.header
@@ -30,9 +35,9 @@ export default function Header() {
           <Link href="#soluzioni">Soluzioni</Link>
           <Link href="#casi">Case studies</Link>
           <Link href="#processo">Come funziona</Link>
-          <Link href="/book">
-            <Button className="btn-gradient text-white shadow-md hover:opacity-95">Prenota una Call</Button>
-          </Link>
+          <Button type="button" onClick={scrollToBook} className="btn-gradient text-white shadow-md hover:opacity-95">
+            Prenota una Call
+          </Button>
         </nav>
       </Container>
     </motion.header>
