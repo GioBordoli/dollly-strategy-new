@@ -2,6 +2,8 @@ import Section from "./section";
 import Container from "./container";
 import SectionHeading from "./section-heading";
 import LeadForm from "./lead-form";
+import Image from "next/image";
+import ProvaloImg from "@/../public/illustrations/provalo.png";
 
 export default function TryItYourself() {
   return (
@@ -11,9 +13,14 @@ export default function TryItYourself() {
           <SectionHeading title="Provalo tu stesso" subtitle="Lascia i tuoi dati e facciamo partire una chiamata demo." />
           <LeadForm />
         </div>
-        <div className="h-72 rounded-2xl bg-slate-100 shadow-card flex items-center justify-center text-slate-400">
-          {/* Placeholder for 3D illustration image */}
-          Illustrazione
+        <div>
+          <Image
+            src={ProvaloImg}
+            alt="Illustrazione demo chiamata"
+            className="w-full h-auto rounded-2xl shadow-card"
+            placeholder="blur"
+            sizes="(min-width: 768px) 36rem, 100vw"
+          />
         </div>
       </Container>
     </Section>

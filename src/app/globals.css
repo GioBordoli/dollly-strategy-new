@@ -149,3 +149,37 @@
 .bg-card {
   background-color: rgb(var(--card));
 }
+
+/* logos marquee */
+@keyframes marquee-x {
+  0% { transform: translate3d(0,0,0); }
+  100% { transform: translate3d(-50%,0,0); }
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-x var(--marquee-duration,30s) linear infinite;
+  will-change: transform;
+}
+
+.group:hover .marquee {
+  animation-play-state: paused;
+}
+
+.mask-fade-x {
+  --mask-start: rgba(0,0,0,0);
+  --mask-mid: rgba(0,0,0,1);
+  mask-image: linear-gradient(to right, var(--mask-start), var(--mask-mid) 10%, var(--mask-mid) 90%, var(--mask-start));
+  -webkit-mask-image: linear-gradient(to right, var(--mask-start), var(--mask-mid) 10%, var(--mask-mid) 90%, var(--mask-start));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee { animation: none; transform: none; }
+}
+
+/* brand gradient text for logo wordmark */
+.text-gradient-logo {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(90deg, #0f172a 0%, #2563eb 50%, #22d3ee 100%);
+}

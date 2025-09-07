@@ -9,7 +9,6 @@ export default function CtaBanner() {
         <Link href="/book">
           <Button className="btn-gradient text-white shadow-md px-6">Prenota una Call</Button>
         </Link>
-        <a href="#provalo" className="text-bluebrand font-medium">Provalo tu stesso</a>
       </div>
     </div>
   );
