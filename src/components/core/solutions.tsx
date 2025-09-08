@@ -9,10 +9,11 @@ type ServiceCardProps = {
   alt: string;
   title: string;
   children: React.ReactNode;
+  objectPosition?: string;
   className?: string;
 };
 
-function ServiceCard({ src, alt, title, children, className }: ServiceCardProps) {
+function ServiceCard({ src, alt, title, children, objectPosition = "center", className }: ServiceCardProps) {
   return (
     <div
       className={cn(
@@ -21,14 +22,26 @@ function ServiceCard({ src, alt, title, children, className }: ServiceCardProps)
         className
       )}
     >
-      {/* IMAGE: fills top of card */}
-      <div className="relative w-full h-40 sm:h-48 md:h-56 lg:h-60">
+      {/* IMAGE REGION: backdrop (cover) + foreground (contain) */}
+      <div className="relative w-full h-44 sm:h-52 md:h-60 lg:h-64">
+        {/* BACKDROP */}
+        <Image
+          src={src}
+          alt=""
+          aria-hidden
+          fill
+          sizes="100vw"
+          className="object-cover blur-xl scale-110 opacity-40"
+          style={{ objectPosition }}
+          priority={false}
+        />
+        {/* FOREGROUND (no crop) */}
         <Image
           src={src}
           alt={alt}
           fill
-          className="object-cover"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          className="object-contain relative z-10"
           priority={false}
         />
       </div>
@@ -37,13 +50,20 @@ function ServiceCard({ src, alt, title, children, className }: ServiceCardProps)
       <div className="p-6 flex flex-col flex-1">
         <h3 className="text-xl font-semibold text-slate-900">{title}</h3>
         <p className="mt-3 text-slate-600 leading-relaxed">{children}</p>
-        <div className="mt-auto" />
       </div>
     </div>
   );
 }
 
-const SOLUTIONS = [
+type SolutionItem = {
+  title: string;
+  desc: string;
+  imageSrc: string;
+  imageAlt: string;
+  objectPosition?: string;
+};
+
+const SOLUTIONS: SolutionItem[] = [
   {
     title: "Agenti Voice AI",
     desc: "Rispondono 24/7, qualificano i lead, fissano appuntamenti e gestiscono richieste ripetitive.",
@@ -53,7 +73,7 @@ const SOLUTIONS = [
   {
     title: "Agenti AI su Misura",
     desc: "Workflow e agenti personalizzati per le tue operazioni: vendita, supporto, back-office.",
-    imageSrc: "/services-images/agents%20su%20misura.png",
+    imageSrc: "/services-images/customAgents.png",
     imageAlt: "Agenti AI su Misura illustration",
   },
   {
@@ -61,6 +81,7 @@ const SOLUTIONS = [
     desc: "Si collega ai tuoi sistemi: CRM, calendari, scheduler, email, WhatsApp, n8n ecc.",
     imageSrc: "/services-images/integration.png",
     imageAlt: "Integrazioni illustration",
+    objectPosition: "center 35%",
   },
   {
     title: "Formazione del personale",
@@ -77,7 +98,13 @@ export default function Solutions() {
         <SectionHeading title="Come trasformiamo il tuo business" subtitle="Automazione delle chiamate, appuntamenti e processi con Agenti AI." />
         <div className={cn("mt-6 grid gap-6", "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4")}>
           {SOLUTIONS.map((s) => (
-            <ServiceCard key={s.title} src={s.imageSrc} alt={s.imageAlt} title={s.title}>
+            <ServiceCard
+              key={s.title}
+              src={s.imageSrc}
+              alt={s.imageAlt}
+              title={s.title}
+              objectPosition={s.objectPosition}
+            >
               {s.desc}
             </ServiceCard>
           ))}

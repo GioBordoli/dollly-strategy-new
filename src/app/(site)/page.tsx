@@ -10,6 +10,8 @@ import CustomerQuote from "@/components/core/customer-quote";
 import SuccessStories from "@/components/core/success-stories";
 import LogosCloud from "@/components/core/logos-cloud";
 import CalendlyInline from "@/components/integrations/calendly-inline";
+import FAQSection from "@/components/sections/faq";
+import CostSection from "@/components/sections/cost";
 import { Button } from "@/components/ui/button";
 
 const stories = [
@@ -135,11 +137,17 @@ export default function HomePage() {
       {/* PROCESS */}
       <ProcessSteps steps={STEPS} />
 
+      {/* FAQ */}
+      <FAQSection />
+
       {/* CUSTOMER QUOTE — to be added later */}
       <CustomerQuote />
 
       {/* COMPARISON TABLE */}
       <ComparisonTable />
+
+      {/* COST SECTION */}
+      <CostSection />
 
       {/* INLINE CALENDLY */}
       <CalendlyInline />

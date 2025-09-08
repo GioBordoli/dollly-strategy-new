@@ -55,10 +55,10 @@ export default function Footer() {
                 </ul>
               </div>
               <div>
-                <h4 className="text-sm font-semibold text-neutral-100">Legal</h4>
+                <h4 className="text-sm font-semibold text-neutral-100">Pagine Legali</h4>
                 <ul className="mt-3 space-y-2 text-neutral-300">
-                  <li><Link href="/privacy" className="hover:underline">Privacy Policy</Link></li>
-                  <li><Link href="/terms" className="hover:underline">Terms of Service</Link></li>
+                  <li><Link href="/privacy" className="hover:underline">Politiche sulla Privacy</Link></li>
+                  <li><Link href="/terms" className="hover:underline">Termini e Condizioni</Link></li>
                 </ul>
               </div>
             </div>
@@ -68,14 +68,7 @@ export default function Footer() {
               <h4 className="text-sm font-semibold text-neutral-100">Contatti</h4>
 
               <div className="mt-3 grid gap-4">
-                <div className="flex items-start gap-2">
-                  <MapPin className="w-4 h-4 mt-1 shrink-0 text-neutral-300" />
-                  <div className="text-neutral-300">
-                    <div className="text-neutral-100">U.S. Office</div>
-                    <div>S. Terrace Rd.</div>
-                    <div>Tempe, AZ, USA 85281</div>
-                  </div>
-                </div>
+
 
                 <div className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 mt-1 shrink-0 text-neutral-300" />
@@ -84,13 +77,6 @@ export default function Footer() {
                     <div>Via Porta 8</div>
                     <div>Como, CO, Italy, 22100</div>
                   </div>
-                </div>
-
-                <div className="flex items-start gap-2">
-                  <Phone className="w-4 h-4 mt-1 shrink-0 text-neutral-300" />
-                  <a href="tel:+16232715783" className="hover:underline text-neutral-300">
-                    +1 623 271 5783
-                  </a>
                 </div>
 
                 <div className="flex items-start gap-2">
