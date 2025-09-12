@@ -33,7 +33,6 @@ export default function Header() {
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-sm text-slate-600">
           <Link href="#soluzioni">Soluzioni</Link>
-          <Link href="#casi">Case studies</Link>
           <Link href="#processo">Come funziona</Link>
           <Button type="button" onClick={scrollToBook} className="btn-gradient text-white shadow-md hover:opacity-95">
             Prenota una Call
