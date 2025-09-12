@@ -3,19 +3,22 @@ import Container from "./container";
 import SectionHeading from "./section-heading";
 
 const ROWS = [
-  "Prompt Engineer & Automation Builders Esperti",
-  "Pratiche di sviluppo innovative",
-  "Sviluppo completamente su misura",
-  "Approccio cliente-centrico",
+  "Integrazini con i tuoi strumenti esistenti",
+  "Pratiche di sviluppo Americane",
+  "Approccio cyber-sicuro",
+  "Conformità GDPR, HIPAA, EU AI Act",
+  "Sviluppo cliente al centro",
   "Test e validazione rigorosi",
-  "Connessioni con tutte le principali piattaforme di Agent AI",
+  "Garanzia di risultato o non paghi",
+  "Supporto 24/7",
+  "Metodologia Agile",
 ];
 
 export default function ComparisonTable() {
   return (
     <Section>
       <Container>
-        <SectionHeading eyebrow="Perché sceglierci" title="Perché le aziende ci scelgono" />
+        <SectionHeading eyebrow="Perché sceglierci" title="Perché le aziende ci amano" />
         <div className="rounded-2xl shadow-card overflow-hidden bg-white">
           <div className="grid grid-cols-3 text-sm font-medium text-slate-600">
             <div className="py-4 px-6 text-left">Caratteristiche</div>

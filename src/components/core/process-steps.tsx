@@ -20,8 +20,8 @@ export type ProcessStep = {
 };
 
 export default function ProcessSteps({
-  eyebrow = "HOW IT WORKS",
-  heading = "Getting started is easy",
+  eyebrow = "IL NOSTRO APPROCCIO",
+  heading = "Cominciare è semplice!",
   steps,
   className,
 }: {

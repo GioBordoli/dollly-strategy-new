@@ -19,12 +19,12 @@ export default function CustomerQuote() {
 
         {/* Quote */}
         <blockquote className="text-2xl md:text-3xl font-semibold text-slate-900 mb-6 leading-snug">
-          “Dolly Strategy ha cambiato la traiettoria della nostra attività e migliorato la qualità del nostro servizio”
+          “Giorgio e il suo team hanno capito subito i miei bisogni e hanno costruito una soluzione ai miei problemi che lavora letteralmente mentre dormo. <br /><br /> Adesso gestisco conferme ai clienti, appuntamenti e follow up in automatico, risparmio ore ogni settimana e finalmente posso concentrarmi sui miei cleti per offrire il miglior servizio possibile.<br /><br /> Se stai pensando se provarci o meno: fallo. <br /><br /> È il miglior investimento che ho fatto negli ultimi 5 anni.”
         </blockquote>
 
         {/* Author */}
         <footer className="text-slate-600">
-          — A. Romanò, <span className="font-medium text-slate-800">Studio Dentistico Romanò & Associati</span>
+          — Jason Coawette , <span className="font-medium text-slate-800">CEO Venture-Stratus LLC</span>
         </footer>
       </Container>
     </Section>

@@ -66,7 +66,7 @@ type SolutionItem = {
 const SOLUTIONS: SolutionItem[] = [
   {
     title: "Agenti Voice AI",
-    desc: "Rispondono 24/7, qualificano i lead, fissano appuntamenti e gestiscono richieste ripetitive.",
+    desc: "Rispondono 24/7, qualificano i lead, fissano appuntamenti e mandano promemoria, gestiscono richieste ripetitive.",
     imageSrc: "/services-images/voiceAI.png",
     imageAlt: "Agenti Voice AI illustration",
   },
@@ -77,10 +77,10 @@ const SOLUTIONS: SolutionItem[] = [
     imageAlt: "Agenti AI su Misura illustration",
   },
   {
-    title: "Integrazioni",
-    desc: "Si collega ai tuoi sistemi: CRM, calendari, scheduler, email, WhatsApp, n8n ecc.",
+    title: "Workflow",
+    desc: "Rendi le operazioni più veloci ed efficienti con i nostri workflow su misura",
     imageSrc: "/services-images/integration.png",
-    imageAlt: "Integrazioni illustration",
+    imageAlt: "Workflow illustration",
     objectPosition: "center 35%",
   },
   {
@@ -95,7 +95,7 @@ export default function Solutions() {
   return (
     <Section id="soluzioni" className="bg-white">
       <Container>
-        <SectionHeading title="Come trasformiamo il tuo business" subtitle="Automazione delle chiamate, appuntamenti e processi con Agenti AI." />
+        <SectionHeading title="Come scalare il tuo business" subtitle="Automazione delle chiamate, appuntamenti e processi con Agenti AI." />
         <div className={cn("mt-6 grid gap-6", "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4")}>
           {SOLUTIONS.map((s) => (
             <ServiceCard

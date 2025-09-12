@@ -1,63 +1,150 @@
-"use client";
-
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { LeadSchema, type LeadInput } from "@/lib/validations";
+"use client"; //
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-
+type Status = "idle" | "loading" | "success" | "error";
+function sanitizeDigits(s: string) {
+  // keep numbers only
+  return s.replace(/\D+/g, "");
+}
 export default function LeadForm() {
-  const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<LeadInput>({ resolver: zodResolver(LeadSchema) });
-  const [ok, setOk] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [countryCode, setCountryCode] = useState<"+1" | "+39">("+39");
+  
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (status === "loading") return; // guard
+    setStatus("loading");
+    setErrorMsg(null);
 
-  const onSubmit = async (data: LeadInput) => {
-    setError(null);
-    setOk(false);
-    const res = await fetch("/api/lead", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
-    if (res.ok) { setOk(true); reset(); } else {
-      const j = await res.json().catch(() => ({}));
-      setError(j?.error ?? "Errore imprevisto. Riprova.");
+    const form = e.currentTarget as HTMLFormElement;
+    const fd = new FormData(form);
+
+    const first = String(fd.get("firstname") || "").trim();
+    const last = String(fd.get("lastname") || "").trim();
+    const email = String(fd.get("email") || "").trim();
+    const rawPhone = String(fd.get("phone") || "");
+    const phone = sanitizeDigits(rawPhone);
+
+    if (!first || !email || !phone) {
+      setErrorMsg("Compila i campi obbligatori.");
+      setStatus("error");
+      return;
     }
-  };
+
+    const payload = {
+      // n8n/Webhook expects these keys:
+      name: first,                 // used as {{first_name}} in Vapi via variableValues
+      surname: last,
+      email,
+      countryCode,                 // "+39" | "+1"
+      phone,                       // digits only; n8n will concat with countryCode
+    };
+
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setErrorMsg(
+          data?.error
+            ? typeof data.error === "string"
+              ? data.error
+              : JSON.stringify(data.error)
+            : "Errore di invio"
+        );
+        setStatus("error");
+        return;
+      }
+
+      setStatus("success");
+      form.reset();
+      setCountryCode("+39");
+    } catch (err) {
+      console.error(err);
+      setErrorMsg("Errore di rete");
+      setStatus("error");
+    }
+  }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div className="grid md:grid-cols-2 gap-4">
-        <div>
-          <Label>Nome</Label>
-          <Input placeholder="Mario" {...register("nome")} />
-          {errors.nome && <p className="text-sm text-red-600 mt-1">{errors.nome.message}</p>}
+    <form onSubmit={onSubmit} className="w-full max-w-xl space-y-4">
+      {/* Name + Surname row */}
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        <div className="space-y-1">
+          <label className="text-sm text-slate-600">Nome*</label>
+          <input
+            name="firstname"
+            required
+            className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none ring-0 focus:border-slate-300"
+            placeholder="Mario"
+          />
         </div>
-        <div>
-          <Label>Cognome</Label>
-          <Input placeholder="Rossi" {...register("cognome")} />
-          {errors.cognome && <p className="text-sm text-red-600 mt-1">{errors.cognome.message}</p>}
-        </div>
-      </div>
-      <div className="grid md:grid-cols-2 gap-4">
-        <div>
-          <Label>Email</Label>
-          <Input placeholder="email@azienda.it" {...register("email")} />
-          {errors.email && <p className="text-sm text-red-600 mt-1">{errors.email.message}</p>}
-        </div>
-        <div>
-          <Label>Telefono</Label>
-          <Input placeholder="+39 ..." {...register("telefono")} />
-          {errors.telefono && <p className="text-sm text-red-600 mt-1">{errors.telefono.message}</p>}
+        <div className="space-y-1">
+          <label className="text-sm text-slate-600">Cognome*</label>
+          <input
+            name="lastname"
+            required
+            className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none ring-0 focus:border-slate-300"
+            placeholder="Rossi"
+          />
         </div>
       </div>
-      <Button type="submit" disabled={isSubmitting} className="btn-gradient text-white px-6">
-        {isSubmitting ? "Invio..." : "Invia e Prova Adesso"}
-      </Button>
-      {ok && <p className="text-green-700">Perfetto, ti contattiamo a breve.</p>}
-      {error && <p className="text-red-600">{error}</p>}
+
+      <div className="space-y-1">
+        <label className="text-sm text-slate-600">Email*</label>
+        <input
+          name="email"
+          type="email"
+          required
+          className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none ring-0 focus:border-slate-300"
+          placeholder="mario@email.com"
+        />
+      </div>
+
+      <div className="space-y-1">
+        <label className="text-sm text-slate-600">Telefono*</label>
+        <div className="flex flex-wrap gap-3">
+          <select
+            value={countryCode}
+            onChange={(e) => setCountryCode(e.target.value as "+1" | "+39")}
+            className="w-28 rounded-2xl border border-slate-200 bg-white px-3 py-3 outline-none focus:border-slate-300"
+            aria-label="Prefisso"
+          >
+            <option value="+39">🇮🇹 +39</option>
+            <option value="+1">🇺🇸 +1</option>
+          </select>
+          <input
+            name="phone"
+            inputMode="tel"
+            pattern="[0-9()+.\-\s]{4,}"
+            required
+            className="min-w-[12rem] flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-3 outline-none focus:border-slate-300"
+            placeholder={countryCode === "+39" ? "335 123 4567" : "(555) 123-4567"}
+            aria-label="Numero di telefono"
+          />
+        </div>
+        <p className="text-xs text-slate-500">
+          Inserisci solo numeri; accettiamo anche spazi e simboli—li puliamo noi.
+        </p>
+      </div>
+
+      <button
+        disabled={status === "loading"}
+        className="rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3 text-white shadow-lg hover:opacity-95 disabled:opacity-60"
+      >
+        {status === "loading" ? "Invio…" : "Prova ora"}
+      </button>
+
+      {status === "success" && (
+        <p className="text-sm text-emerald-600">Perfetto! Ti contattiamo tra poco.</p>
+      )}
+      {status === "error" && (
+        <p className="text-sm text-red-600">{errorMsg || "Errore"}</p>
+      )}
     </form>
   );
-} 
+}

@@ -12,6 +12,7 @@ import LogosCloud from "@/components/core/logos-cloud";
 import CalendlyInline from "@/components/integrations/calendly-inline";
 import FAQSection from "@/components/sections/faq";
 import CostSection from "@/components/sections/cost";
+import { FEATURES } from "@/config/feature-flags";
 import { Button } from "@/components/ui/button";
 
 const stories = [
@@ -64,26 +65,26 @@ const stories = [
 const STEPS: ProcessStep[] = [
   {
     n: 1,
-    title: "Introductory Call",
-    desc: "We learn about your business and figure out what kind of agent you need.",
+    title: "Chiamata conoscitiva",
+    desc: "Scopriamo insieme gli obiettivi e gli ostacoli della tua attività.",
     icon: { kind: "svg", src: "/illustrations/step1.svg", alt: "Step 1" },
   },
   {
     n: 2,
-    title: "Discovery Call",
-    desc: "We plan from start to finish and provide insights for a high-impact voice agent.",
+    title: "Chiamata strategica",
+    desc: "Ti mostriamo la strategia su misura per arrivarci senza complicazioni.",
     icon: { kind: "svg", src: "/illustrations/step2.svg", alt: "Step 2" },
   },
   {
     n: 3,
-    title: "Development",
-    desc: "Your agent & automations get built and connected to your systems.",
+    title: "Sviluppo",
+    desc: "Diamo vita al tuo agente e lo testiamo insieme, pronto a lavorare per te.",
     icon: { kind: "svg", src: "/illustrations/step3.svg", alt: "Step 3" },
   },
   {
     n: 4,
-    title: "Testing & Launch",
-    desc: "Final testing, then your voice agent goes live and starts taking calls.",
+    title: "Pronti al lancio",
+    desc: "Il tuo agente è online, attivo 24/7: più tempo, più clienti, meno pensieri.",
     icon: { kind: "svg", src: "/illustrations/step4.svg", alt: "Step 4" },
   },
 ];
@@ -147,7 +148,7 @@ export default function HomePage() {
       <ComparisonTable />
 
       {/* COST SECTION */}
-      <CostSection />
+      {FEATURES.COST_SECTION && <CostSection />}
 
       {/* INLINE CALENDLY */}
       <CalendlyInline />
