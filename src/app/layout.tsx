@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Dolly Strategy — Agenti AI e Automazioni per PMI italiane",
   description: "Costruiamo agenti AI su misura: Voice, Custom e Integrazioni. Prenota una call.",
   metadataBase: new URL("https://www.dollystrategy.com"),
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
