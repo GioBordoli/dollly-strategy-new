@@ -14,6 +14,7 @@ import FAQSection from "@/components/sections/faq";
 import CostSection from "@/components/sections/cost";
 import { FEATURES } from "@/config/feature-flags";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 const stories = [
   {
@@ -90,6 +91,7 @@ const STEPS: ProcessStep[] = [
 ];
 
 export default function HomePage() {
+  const t = useTranslations("home");
   return (
     <main>
       {/* HERO stays as-is */}
@@ -97,18 +99,18 @@ export default function HomePage() {
         <Container className="text-center">
           <div className="mx-auto max-w-3xl">
             <div className="text-xs text-slate-500 mb-4">
-              <div>Automatizza comunicazioni e processi con Agenti AI.</div>
+              <div>{t("eyebrow")}</div>
               <div className="mb-1">⭐️⭐️⭐️⭐️⭐️</div>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-              Raddoppia i Profitti con <span className="text-gradient">Agenti AI </span> su Misura
+              {t("title").replace("Agenti AI", "")}<span className="text-gradient"> AI Agents </span>
             </h1>
             <p className="text-slate-600 mt-5">
-              Aumenta i clienti. Semplifica il lavoro. Intelligenza su misura integrata nei tuoi sistemi.
+              {t("subtitle")}
             </p>
             <div className="mt-8 flex items-center justify-center gap-4">
               <a href="#book" className="inline-flex">
-                <Button className="btn-gradient text-white px-6">Prenota una Call</Button>
+                <Button className="btn-gradient text-white px-6">{t("cta", { default: "Prenota una Call" })}</Button>
               </a>
             </div>
           </div>
@@ -116,10 +118,10 @@ export default function HomePage() {
       </Section>
 
       {/* STAT CARDS — with eyebrow/arrow */}
-      <StatCards eyebrowLabel="cosa aspettarti" />
+      <StatCards eyebrowLabel={t("statEyebrow")} />
 
       {/* LOGOS — with caption text above marquee */}
-      <LogosCloud caption="Portiamo i giganti dell’AI al tuo servizio." />
+      <LogosCloud caption={t("logosCaption")} />
 
       {/* CASE STUDIES */}
       {/* Temporarily disabled; keep for future use. */}
