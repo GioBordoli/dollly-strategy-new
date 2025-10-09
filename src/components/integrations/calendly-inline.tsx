@@ -39,8 +39,8 @@ export default function CalendlyInline({
     <section id="book" aria-label={pageTitle} className="scroll-mt-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="text-center">
-          <div className="text-xs uppercase tracking-wider text-bluebrand font-semibold">Let’s connect</div>
-          <h2 className="mt-1 text-3xl md:text-4xl font-bold tracking-tight">Book Your Introductory Call</h2>
+          <div className="text-xs uppercase tracking-wider text-bluebrand font-semibold">Lasciati aiutare!</div>
+          <h2 className="mt-1 text-3xl md:text-4xl font-bold tracking-tight">Fissa la tua chiamata</h2>
         </div>
 
         <div ref={ref} className="mt-8 rounded-3xl bg-white shadow-card ring-1 ring-slate-200/70 p-3 sm:p-4">
