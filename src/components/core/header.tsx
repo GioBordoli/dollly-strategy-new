@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import Container from "./container";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { BrandLogo } from "@/components/brand/logo";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);

@@ -1,6 +1,5 @@
 import Section from "./section";
 import Container from "./container";
-import Image from "next/image";
 import { Phone, TrendingUp, Target } from "lucide-react";
 
 const stats = [
